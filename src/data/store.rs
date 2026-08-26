@@ -13,7 +13,7 @@ use std::time::{Duration, SystemTime, UNIX_EPOCH};
 use serde::de::DeserializeOwned;
 
 use super::fallback::fallback;
-use super::model::{Job, Project, Quote, SiteData, SocialsDoc};
+use super::model::{AdjectivesDoc, Job, Project, Quote, SiteData, SocialsDoc};
 
 /// Minimum seconds between pulls. Connections inside this window reuse the
 /// cached snapshot instead of fetching again.
@@ -130,7 +130,7 @@ async fn fetch_all(base: String) -> anyhow::Result<SiteData> {
     let base = base.trim_end_matches('/').to_string();
 
     let (adjectives, jobs, projects, quotes, socials) = tokio::try_join!(
-        fetch_json::<Vec<String>>(&client, &base, "adjectives.json"),
+        fetch_json::<AdjectivesDoc>(&client, &base, "adjectives.json"),
         fetch_json::<Vec<Job>>(&client, &base, "jobs.json"),
         fetch_json::<Vec<Project>>(&client, &base, "projects.json"),
         fetch_json::<Vec<Quote>>(&client, &base, "quotes.json"),
@@ -138,12 +138,13 @@ async fn fetch_all(base: String) -> anyhow::Result<SiteData> {
     )?;
 
     Ok(SiteData {
-        adjectives,
+        adjectives: adjectives.adjectives,
         jobs,
         projects,
         quotes,
         socials: socials.socials,
         primary_email: socials.primary_email,
+        location: adjectives.location,
     })
 }
 

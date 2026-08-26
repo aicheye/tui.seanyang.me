@@ -9,6 +9,7 @@ use super::model::{Job, PrimaryEmail, Project, Quote, SiteData, Social};
 /// Combined shape of `fallback.json` (mirrors the separately-served files).
 #[derive(Deserialize)]
 struct FallbackDoc {
+    location: String,
     adjectives: Vec<String>,
     jobs: Vec<Job>,
     projects: Vec<Project>,
@@ -31,6 +32,7 @@ pub fn fallback() -> SiteData {
         quotes: doc.quotes,
         socials: doc.socials,
         primary_email: doc.primary_email,
+        location: doc.location,
     }
 }
 
@@ -47,5 +49,6 @@ mod tests {
         assert!(!data.quotes.is_empty());
         assert!(!data.socials.is_empty());
         assert!(!data.primary_email.label.is_empty());
+        assert!(!data.location.is_empty());
     }
 }

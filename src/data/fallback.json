@@ -1,4 +1,5 @@
 {
+  "location": "Toronto, ON",
   "adjectives": [
     "robotics engineer",
     "sustainable urbanist",
@@ -9,7 +10,7 @@
     {
       "title": "Robotics Perception Intern",
       "company": "moss",
-      "description": "autonomy, cv pipelines, and firmware for agbots",
+      "description": "autonomy, cv pipelines, and reliability for agbots",
       "website": "https://moss.ag",
       "location": "San Francisco, CA",
       "technologies": ["ROS 2", "C++", "Rust", "Linux"],

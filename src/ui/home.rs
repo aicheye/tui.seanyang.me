@@ -115,7 +115,7 @@ impl SectionView for HomeSection {
             .split(area);
 
         render_wordmark(f, chunks[1]);
-        render_location(f, chunks[2], &data.primary_email.label);
+        render_location(f, chunks[2], &data.primary_email.label, &data.location);
         render_tagline(f, chunks[4], &data.adjectives);
         render_progress(f, chunks[6]);
         render_quote(f, self, &data, chunks[8]);
@@ -129,14 +129,14 @@ fn render_wordmark(f: &mut Frame, area: Rect) {
     f.render_widget(p, area);
 }
 
-fn render_location(f: &mut Frame, area: Rect, email: &str) {
-    let right = "⦿ San Francisco, CA";
+fn render_location(f: &mut Frame, area: Rect, email: &str, location: &str) {
+    let right = format!("⦿ {location}");
     let pad = (area.width as usize).saturating_sub(email.chars().count() + right.chars().count());
     let line = Line::from(vec![
         Span::styled(email.to_string(), theme::secondary()),
         Span::raw(" ".repeat(pad)),
         Span::styled("⦿ ", theme::primary()),
-        Span::styled("San Francisco, CA", theme::secondary()),
+        Span::styled(location.to_string(), theme::secondary()),
     ]);
     f.render_widget(Paragraph::new(line), area);
 }

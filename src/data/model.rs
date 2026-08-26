@@ -48,6 +48,15 @@ pub struct SocialsDoc {
     pub socials: Vec<Social>,
 }
 
+/// Shape of `adjectives.json`: the header's current location plus the
+/// tagline adjectives.
+#[derive(Clone, Debug, Deserialize)]
+pub struct AdjectivesDoc {
+    /// Current city, shown next to the email on the home screen, e.g. `Toronto, ON`.
+    pub location: String,
+    pub adjectives: Vec<String>,
+}
+
 #[derive(Clone, Debug, Deserialize)]
 pub struct PrimaryEmail {
     /// Bare address shown in the TUI, e.g. `sean@seanyang.ca`.
@@ -63,4 +72,5 @@ pub struct SiteData {
     pub quotes: Vec<Quote>,
     pub socials: Vec<Social>,
     pub primary_email: PrimaryEmail,
+    pub location: String,
 }
